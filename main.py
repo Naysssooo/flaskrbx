@@ -1,13 +1,29 @@
-from flask import Flask, jsonify
-import os
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-
 @app.route('/')
-def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
 
+def index():
+
+  return render_template('index.html')
+
+@app.route('/db', methods=['POST', 'GET'])
+
+def shish():
+
+  if request.method == 'GET':
+
+    msg = "Response!"
+
+    print("SENT >>>", msg)
+
+    return msg
+
+  print("RECEIVED >>>",list(request.form))
+
+  return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.getenv("PORT", default=5000))
+
+  app.run()
